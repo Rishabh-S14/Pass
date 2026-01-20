@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTC Pass Verification</title>
+    <style>
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            font-family: -apple-system, sans-serif;
+            background-color: #f0f4f4;
+        }
+
+        /* Full screen center alignment */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Loading Screen Style */
+        #loading-view {
+            text-align: center;
+            color: #005f5f;
+        }
+
+        /* The Card (Hidden initially) */
+        #pass-card {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .header { background: #005f5f; color: white; padding: 15px; text-align: center; font-weight: bold; }
+        .type-sec { padding: 15px; border-bottom: 1px solid #eee; }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-right: 5px; }
+        .b-month { background: #fdf2d2; color: #856404; }
+        .b-ac { background: #d1e7dd; color: #0f5132; }
+        
+        .details { padding: 20px; }
+        .label { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 10px; }
+        .value { font-size: 15px; font-weight: 600; color: #222; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .verified {
+            background: #27ae60; color: white; text-align: center;
+            padding: 18px; font-size: 20px; font-weight: bold;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Spinner Animation */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #005f5f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="loading-view">
+        <div class="spinner"></div>
+        <p>Connecting to DTC Validation Server...</p>
+    </div>
+
+    <div id="pass-card">
+        <div class="header">DTC BUS PASS</div>
+        <div class="type-sec">
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">General All Route AC Pass</div>
+            <span class="badge b-month">onemonth</span>
+            <span class="badge b-ac">AC</span>
+        </div>
+        <div class="details">
+            <div class="label">Pass ID</div><div class="value">TPASS762312251240910</div>
+            <div class="label">Passenger Name</div><div class="value">Rishabh Singh</div>
+            <div class="grid">
+                <div><div class="label">Valid From</div><div class="value">19 Jan 2026</div></div>
+                <div><div class="label">Valid Till</div><div class="value" style="color:#c0392b">18 Feb 2026</div></div>
+            </div>
+        </div>
+        <div class="verified">Verified ✅</div>
+    </div>
+</div>
+
+<script>
+    const dtcUrl = "https://dtc.delhi.gov.in";
+
+    window.onload = function() {
+        // 1. Wait 2.5 seconds (Simulating loading the DTC site)
+        setTimeout(() => {
+            document.getElementById('loading-view').style.display = 'none';
+            document.getElementById('pass-card').style.display = 'block';
+        }, 2500);
+
+        // 2. Show card for 6 seconds, then go to the actual website
+        setTimeout(() => {
+            window.location.href = dtcUrl;
+        }, 8500); // 2.5s loading + 6s display = 8.5s total
+    };
+</script>
+
+</body>
+</html>
